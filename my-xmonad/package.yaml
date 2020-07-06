@@ -1,0 +1,39 @@
+name:                my-xmonad
+version:             0.1
+github:              "jcinnamond/my-xmonad"
+license:             BSD3
+author:              "John Cinnamond"
+maintainer:          "john@cinnamond.me.uk"
+copyright:           "2020 John Cinnamond"
+
+extra-source-files:
+- README.md
+- ChangeLog.md
+
+# Metadata used when publishing your package
+synopsis:            My XMonad config
+category:            system
+
+# To avoid duplicated efforts in documentation and dealing with the
+# complications of embedding Haddock markup inside cabal files, it is
+# common to point users to the README.md file.
+description:         Please see the README on GitHub at <https://github.com/jcinnamond/my-xmonad#readme>
+
+dependencies:
+- base >= 4.7 && < 5
+- xmonad >= 0.15
+- xmonad-contrib >= 0.16
+
+library:
+  source-dirs: src
+
+executables:
+  my-xmonad:
+    main:                Main.hs
+    source-dirs:         .
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - my-xmonad

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# exit with an error if any of the build steps fail
+set -e
+
+# Build xmonad
+stack build :my-xmonad :xmobar
+stack install :my-xmonad :xmobar
+
+# Copy the xmonad binary to the location xmonad expects to find it
+cp -f bin/my-xmonad $1

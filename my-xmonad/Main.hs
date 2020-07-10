@@ -25,8 +25,17 @@ myConfig = def { terminal = "termite"
                , layoutHook = myLayout
                , workspaces = myWorkspaces
                }
-           `additionalKeysP` switchWorkspaceKeys
+           `additionalKeysP` (myKeys ++ switchWorkspaceKeys)
 
+
+myKeys :: [(String, X ())]
+myKeys = [
+  -- Some multimedia keys
+    ("<XF86AudioPlay>", spawn "playerctl play-pause")
+  , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ +2%")
+  , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ -2%")
+  , ("<XF86AudioMute>", spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
+  ]
 
 myWorkspaces :: [String]
 myWorkspaces = ["dev", "web", "chat", "x", "y", "config", "me", "music"]
@@ -34,6 +43,7 @@ myWorkspaces = ["dev", "web", "chat", "x", "y", "config", "me", "music"]
 homeRow :: [String]
 homeRow = ["a", "s", "d", "f", "g", "j", "k", "l"]
 
+switchWorkspaceKeys :: [(String, X ())]
 switchWorkspaceKeys = [(maybeShift ++ "M4-" ++ key, action tag)
                       | (tag, key) <- zip myWorkspaces homeRow
                       , (maybeShift, action) <- [("", windows . W.greedyView)

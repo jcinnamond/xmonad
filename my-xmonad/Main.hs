@@ -10,7 +10,7 @@ import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 
 import XMonad.Layout ((|||), Tall(..), Full(..))
 import XMonad.Layout.Accordion (Accordion(..))
-import XMonad.Layout.Circle (Circle(..))
+import XMonad.Layout.Constrained (Constrained(..))
 import XMonad.Layout.Combo (combineTwo)
 import XMonad.Layout.IfMax (IfMax(..))
 import XMonad.Layout.TwoPane (TwoPane(..))
@@ -49,7 +49,7 @@ switchWorkspaceKeys = [(maybeShift ++ "M4-" ++ key, action tag)
 
 
 myLayout = avoidStruts $ spaceWindows $
-           IfMax 1 Circle (combineTwo (TwoPane 0.7 0.3) Accordion Full)
+           IfMax 1 Constrained (combineTwo (TwoPane 0.7 0.3) Accordion Full)
            ||| Tall 1 (1/100) (1/2)
            ||| Full
   where spaceWindows = spacingRaw True (Border 0 0 0 0) False (Border 5 5 5 5) True

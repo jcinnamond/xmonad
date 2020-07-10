@@ -1,3 +1,5 @@
+{-# LANGUAGE NumericUnderscores #-}
+
 module Main (main) where
 
 import XMonad (xmonad, def, logHook, layoutHook, workspaces, spawn, terminal, windows, X, XConfig, Window)
@@ -14,7 +16,7 @@ import XMonad.Layout.IfMax (IfMax(..))
 import XMonad.Layout.TwoPane (TwoPane(..))
 import XMonad.Layout.Spacing (spacingRaw, Border(..))
 
-import XMonad.Prompt (searchPredicate, sorter, XPConfig)
+import XMonad.Prompt (autoComplete, searchPredicate, sorter, XPConfig)
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
 import XMonad.Prompt.Shell (shellPrompt)
 
@@ -32,7 +34,8 @@ myConfig = def { terminal   = "termite"
            `additionalKeysP` (myKeys ++ switchWorkspaceKeys)
 
 myPromptConfig :: XPConfig
-myPromptConfig = def { searchPredicate = fuzzyMatch
+myPromptConfig = def { autoComplete = Just 200_000
+                     , searchPredicate = fuzzyMatch
                      , sorter          = fuzzySort
                      }
 

@@ -14,6 +14,8 @@ import XMonad.Layout.IfMax (IfMax(..))
 import XMonad.Layout.TwoPane (TwoPane(..))
 import XMonad.Layout.Spacing (spacingRaw, Border(..))
 
+import XMonad.Prompt.Shell (shellPrompt)
+
 import XMonad.Util.EZConfig (additionalKeysP)
 
 main :: IO ()
@@ -30,8 +32,11 @@ myConfig = def { terminal = "termite"
 
 myKeys :: [(String, X ())]
 myKeys = [
+  -- Prompts
+    ("M4-<Return>", shellPrompt def)
+
   -- Some multimedia keys
-    ("<XF86AudioPlay>", spawn "playerctl play-pause")
+  , ("<XF86AudioPlay>", spawn "playerctl play-pause")
   , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ +2%")
   , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ -2%")
   , ("<XF86AudioMute>", spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")

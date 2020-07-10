@@ -5,10 +5,9 @@
   Copyright    : (c) 2010 John Cinnamond (john@cinnamond.me.uk)
   License      : BSD
 
-  This module defines the keybindings, theme, and prompt configs
-  I like to use with XMonad.
+  This module defines the keybindings I like to use with XMonad.
 -}
-module XMonad.Config.MyConfig (
+module XMonad.Config.MyKeys (
   myKeys
   ) where
 

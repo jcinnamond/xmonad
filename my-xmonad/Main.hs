@@ -3,7 +3,7 @@ module Main (main) where
 import XMonad (xmonad, def, keys, logHook, layoutHook, workspaces, spawn, terminal, windows, X, XConfig, Window)
 import qualified XMonad.StackSet as W
 
-import XMonad.Config.MyConfig (myKeys)
+import XMonad.Config.MyKeys (myKeys)
 
 import XMonad.Hooks.DynamicLog (dynamicLogString, xmobarPP, xmonadPropLog)
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)

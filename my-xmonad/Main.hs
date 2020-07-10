@@ -1,6 +1,6 @@
 module Main (main) where
 
-import XMonad (xmonad, def, logHook, layoutHook, workspaces, spawn, terminal, windows, X, XConfig, Window)
+import XMonad (xmonad, def, keys, logHook, layoutHook, workspaces, spawn, terminal, windows, X, XConfig, Window)
 import qualified XMonad.StackSet as W
 
 import XMonad.Config.MyConfig (myKeys)
@@ -21,19 +21,19 @@ import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.XMonad (xmonadPrompt)
 
-import XMonad.Util.EZConfig (additionalKeysP, additionalKeys)
+import XMonad.Util.EZConfig (additionalKeysP)
 
 main :: IO ()
 main = do
   xmonad $ docks $ myConfig
 
 myConfig = def { terminal   = "termite"
+               , keys       = myKeys
                , logHook    = dynamicLogString xmobarPP >>= xmonadPropLog
                , layoutHook = myLayout
                , workspaces = myWorkspaces
                }
            `additionalKeysP` (switchWorkspaceKeys)
-           `additionalKeys` myKeys
 
 myWorkspaces :: [String]
 myWorkspaces = ["dev", "web", "chat", "x", "y", "config", "me", "music"]

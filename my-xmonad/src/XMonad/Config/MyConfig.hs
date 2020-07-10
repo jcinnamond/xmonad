@@ -17,7 +17,7 @@ import qualified Data.Map as M
 import Graphics.X11.Xlib -- used for masks, keys, and `stringToKeysym` for looking up multimedia keys
 import System.Exit
 
-import XMonad (ChangeLayout(NextLayout), IncMasterN(..), io, kill, sendMessage, spawn, windows, withFocused, X ())
+import XMonad (ChangeLayout(NextLayout), IncMasterN(..), io, kill, sendMessage, spawn, windows, withFocused, XConfig, X ())
 import qualified XMonad.StackSet as W
 
 import XMonad.Prompt (autoComplete, def, searchPredicate, sorter, XPConfig)
@@ -73,8 +73,8 @@ myPromptConfig = def { autoComplete = Just 200_000
 
   It also adds some multimedia key bindings.
 -}
-myKeys :: [((KeyMask, KeySym), X ())]
-myKeys = [
+myKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
+myKeys _ = M.fromList $ [
   -- Manage windows
     ((mod4Mask, xK_Tab), windows W.focusDown)
   , ((mod4Mask .|. shiftMask, xK_Tab), windows W.focusUp)

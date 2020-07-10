@@ -12,7 +12,6 @@ import XMonad.Util.EZConfig (additionalKeysP)
 
 main :: IO ()
 main = do
-  spawn "~/.xmonad/bin/xmobar"
   xmonad $ docks $ myConfig
 
 myConfig = def { terminal = "termite"

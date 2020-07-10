@@ -14,6 +14,8 @@ import XMonad.Layout.IfMax (IfMax(..))
 import XMonad.Layout.TwoPane (TwoPane(..))
 import XMonad.Layout.Spacing (spacingRaw, Border(..))
 
+import XMonad.Prompt (searchPredicate, sorter, XPConfig)
+import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
 import XMonad.Prompt.Shell (shellPrompt)
 
 import XMonad.Util.EZConfig (additionalKeysP)
@@ -22,18 +24,22 @@ main :: IO ()
 main = do
   xmonad $ docks $ myConfig
 
-myConfig = def { terminal = "termite"
-               , logHook = dynamicLogString xmobarPP >>= xmonadPropLog
+myConfig = def { terminal   = "termite"
+               , logHook    = dynamicLogString xmobarPP >>= xmonadPropLog
                , layoutHook = myLayout
                , workspaces = myWorkspaces
                }
            `additionalKeysP` (myKeys ++ switchWorkspaceKeys)
 
+myPromptConfig :: XPConfig
+myPromptConfig = def { searchPredicate = fuzzyMatch
+                     , sorter          = fuzzySort
+                     }
 
 myKeys :: [(String, X ())]
 myKeys = [
   -- Prompts
-    ("M4-<Return>", shellPrompt def)
+    ("M4-<Return>", shellPrompt myPromptConfig)
 
   -- Some multimedia keys
   , ("<XF86AudioPlay>", spawn "playerctl play-pause")

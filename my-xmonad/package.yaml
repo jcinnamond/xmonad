@@ -21,8 +21,10 @@ description:         Please see the README on GitHub at <https://github.com/jcin
 
 dependencies:
 - base >= 4.7 && < 5
+- containers >= 0.6.2.1
 - xmonad >= 0.15
 - xmonad-contrib >= 0.16
+- X11 >= 1.9.1
 
 library:
   source-dirs: src

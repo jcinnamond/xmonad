@@ -1,9 +1,9 @@
-{-# LANGUAGE NumericUnderscores #-}
-
 module Main (main) where
 
 import XMonad (xmonad, def, logHook, layoutHook, workspaces, spawn, terminal, windows, X, XConfig, Window)
 import qualified XMonad.StackSet as W
+
+import XMonad.Config.MyConfig (myKeys)
 
 import XMonad.Hooks.DynamicLog (dynamicLogString, xmobarPP, xmonadPropLog)
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
@@ -21,7 +21,7 @@ import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.XMonad (xmonadPrompt)
 
-import XMonad.Util.EZConfig (additionalKeysP)
+import XMonad.Util.EZConfig (additionalKeysP, additionalKeys)
 
 main :: IO ()
 main = do
@@ -32,26 +32,8 @@ myConfig = def { terminal   = "termite"
                , layoutHook = myLayout
                , workspaces = myWorkspaces
                }
-           `additionalKeysP` (myKeys ++ switchWorkspaceKeys)
-
-myPromptConfig :: XPConfig
-myPromptConfig = def { autoComplete = Just 200_000
-                     , searchPredicate = fuzzyMatch
-                     , sorter          = fuzzySort
-                     }
-
-myKeys :: [(String, X ())]
-myKeys = [
-  -- Prompts
-    ("M4-<Return>", shellPrompt myPromptConfig)
-  , ("M4-C-<Return>", xmonadPrompt myPromptConfig)
-
-  -- Some multimedia keys
-  , ("<XF86AudioPlay>", spawn "playerctl play-pause")
-  , ("<XF86AudioRaiseVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ +2%")
-  , ("<XF86AudioLowerVolume>", spawn "pactl set-sink-volume @DEFAULT_SINK@ -2%")
-  , ("<XF86AudioMute>", spawn "pactl set-sink-mute @DEFAULT_SINK@ toggle")
-  ]
+           `additionalKeysP` (switchWorkspaceKeys)
+           `additionalKeys` myKeys
 
 myWorkspaces :: [String]
 myWorkspaces = ["dev", "web", "chat", "x", "y", "config", "me", "music"]

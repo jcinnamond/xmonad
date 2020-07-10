@@ -19,6 +19,7 @@ import XMonad.Layout.Spacing (spacingRaw, Border(..))
 import XMonad.Prompt (autoComplete, searchPredicate, sorter, XPConfig)
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
 import XMonad.Prompt.Shell (shellPrompt)
+import XMonad.Prompt.XMonad (xmonadPrompt)
 
 import XMonad.Util.EZConfig (additionalKeysP)
 
@@ -43,6 +44,7 @@ myKeys :: [(String, X ())]
 myKeys = [
   -- Prompts
     ("M4-<Return>", shellPrompt myPromptConfig)
+  , ("M4-C-<Return>", xmonadPrompt myPromptConfig)
 
   -- Some multimedia keys
   , ("<XF86AudioPlay>", spawn "playerctl play-pause")

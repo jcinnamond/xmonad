@@ -1,0 +1,12 @@
+* Keybindings
+** Move workspace switching keys to MyKeys. Function to take list of workspaces and add it to keys for layout (qwerty or colemak)
+** Fix kill (clashes with move to workspace k)
+* Theme
+* NamedScratchpads
+** definitely terminal
+* Better combo layout
+Respect primary and secondary spaces. Primary on left, taking up 3/4 of the screen.
+* xmobar
+** style it
+** try to compile with alsa support
+** hide battery if not present

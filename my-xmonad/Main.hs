@@ -27,8 +27,7 @@ main :: IO ()
 main = do
   xmonad $ docks $ myConfig
 
-myConfig = def { terminal   = "termite"
-               , keys       = myKeys
+myConfig = def { keys       = myKeys
                , logHook    = dynamicLogString xmobarPP >>= xmonadPropLog
                , layoutHook = myLayout
                , workspaces = myWorkspaces

@@ -69,6 +69,7 @@ myPromptConfig = def { autoComplete = Just 200_000
   == Launchers and running commands
     * Super-<Return>           Command launcher
     * Super-Control-<Return>   Prompt for XMonad actions
+    * Super-z                  Suspend
 
   It also adds some multimedia key bindings.
 -}
@@ -91,9 +92,10 @@ myKeys _ = M.fromList $ [
   , ((mod4Mask, xK_q), spawn "xmonad --recompile && xmonad --restart")
   , ((mod4Mask .|. shiftMask, xK_q), io (exitWith ExitSuccess))
 
-  -- Prompts
+  -- Launchers and running commands
   , ((mod4Mask, xK_Return), shellPrompt myPromptConfig)
   , ((mod4Mask .|. controlMask, xK_Return), xmonadPrompt myPromptConfig)
+  , ((mod4Mask, xK_z), spawn "systemctl suspend")
 
    -- Multimedia keys
   , ((noModMask, stringToKeysym "XF86AudioPlay"), spawn "playerctl play-pause")

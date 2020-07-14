@@ -4,8 +4,9 @@ import XMonad (xmonad, def, keys, logHook, layoutHook, workspaces, spawn, termin
 import qualified XMonad.StackSet as W
 
 import XMonad.Config.MyKeys (myKeys)
+import XMonad.Config.MyXMobarPP (myXMobarPP)
 
-import XMonad.Hooks.DynamicLog (dynamicLogString, xmobarPP, xmonadPropLog)
+import XMonad.Hooks.DynamicLog (dynamicLogString, xmonadPropLog)
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 
 import XMonad.Layout ((|||), Tall(..), Full(..))
@@ -24,11 +25,10 @@ import XMonad.Prompt.XMonad (xmonadPrompt)
 import XMonad.Util.EZConfig (additionalKeysP)
 
 main :: IO ()
-main = do
-  xmonad $ docks $ myConfig
+main = xmonad $ docks $ myConfig
 
 myConfig = def { keys       = myKeys
-               , logHook    = dynamicLogString xmobarPP >>= xmonadPropLog
+               , logHook    = dynamicLogString myXMobarPP >>= xmonadPropLog
                , layoutHook = myLayout
                , workspaces = myWorkspaces
                }

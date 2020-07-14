@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 4944dd30b8167530398e67729a17476ae8de016ec1eae3ff110f92f1ae6d91ef
+-- hash: 1b6001700a0efa460203fc4efe3ec775f24b60c3489b47ed8de6efaac35e608a
 
 name:           my-xmonad
 version:        0.1
@@ -29,6 +29,7 @@ source-repository head
 library
   exposed-modules:
       XMonad.Config.MyKeys
+      XMonad.Config.MyXMobarPP
       XMonad.Layout.Constrained
   other-modules:
       Paths_my_xmonad

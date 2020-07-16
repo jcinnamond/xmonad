@@ -48,7 +48,9 @@ switchWorkspaceKeys = [(maybeShift ++ "M4-" ++ key, action tag)
 
 
 myLayout = avoidStruts $ spaceWindows $
-           IfMax 1 Constrained (combineTwo (TwoPane 0.7 0.3) Accordion Full)
-           ||| Tall 1 (1/100) (1/2)
+           constrainSingle (combineTwo (TwoPane 0.7 0.3) Accordion Full)
+           ||| constrainSingle (Tall 1 (1/100) (1/2))
            ||| Full
-  where spaceWindows = spacingRaw True (Border 0 0 0 0) False (Border 5 5 5 5) True
+  where
+    constrainSingle = IfMax 1 Constrained
+    spaceWindows = spacingRaw True (Border 0 0 0 0) False (Border 5 5 5 5) True

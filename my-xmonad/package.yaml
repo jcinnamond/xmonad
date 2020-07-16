@@ -30,7 +30,7 @@ library:
   source-dirs: src
 
 executables:
-  my-xmonad:
+  xmonad:
     main:                Main.hs
     source-dirs:         .
     ghc-options:

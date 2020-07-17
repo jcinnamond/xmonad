@@ -1,5 +1,5 @@
 {-|
-  Module       : XMonad.Config.MyXmobarPP
+  Module       : XMonad.Config.MyXMobarPP
   Copyright    : (c) 2010 John Cinnamond (john@cinnamond.me.uk)
   License      : BSD
 
@@ -10,11 +10,12 @@ module XMonad.Config.MyXMobarPP (
   ) where
 
 import XMonad.Hooks.DynamicLog (PP(..), wrap, xmobarColor, xmobarPP)
+import XMonad.Config.Theme (activeColor, focusedColor, inactiveColor, foregroundColor)
 
 myXMobarPP :: PP
-myXMobarPP = xmobarPP { ppCurrent = xmobarColor "#de935f" "" . wrap "[" "]"
-                      , ppHidden = xmobarColor "#c5c8c6" ""
-                      , ppHiddenNoWindows = xmobarColor "#707880" ""
-                      , ppTitle = xmobarColor "#c5c8c6" ""
-                      , ppSep = xmobarColor "#707880" "" "   |||   "
+myXMobarPP = xmobarPP { ppCurrent = xmobarColor focusedColor "" . wrap "[" "]"
+                      , ppHidden = xmobarColor activeColor ""
+                      , ppHiddenNoWindows = xmobarColor inactiveColor ""
+                      , ppTitle = xmobarColor foregroundColor ""
+                      , ppSep = xmobarColor inactiveColor "" "   |   "
                       }

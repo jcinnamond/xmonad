@@ -19,16 +19,18 @@ import System.Exit
 import XMonad (ChangeLayout(NextLayout), IncMasterN(..), io, kill, sendMessage, spawn, windows, withFocused, XConfig, X ())
 import qualified XMonad.StackSet as W
 
+import XMonad.Config.Theme (myXP)
+
 import XMonad.Prompt (autoComplete, def, searchPredicate, sorter, XPConfig)
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.XMonad (xmonadPrompt)
 
 myPromptConfig :: XPConfig
-myPromptConfig = def { autoComplete = Just 200_000
-                     , searchPredicate = fuzzyMatch
-                     , sorter          = fuzzySort
-                     }
+myPromptConfig = myXP { autoComplete = Just 200_000
+                      , searchPredicate = fuzzyMatch
+                      , sorter          = fuzzySort
+                      }
 
 
 {-|

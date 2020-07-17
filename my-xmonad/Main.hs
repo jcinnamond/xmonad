@@ -1,10 +1,11 @@
 module Main (main) where
 
-import XMonad (xmonad, def, keys, logHook, layoutHook, workspaces, spawn, terminal, windows, X, XConfig, Window)
+import XMonad (keys, logHook, layoutHook, spawn, terminal, Window, windows, workspaces, X, xmonad)
 import qualified XMonad.StackSet as W
 
 import XMonad.Config.MyKeys (myKeys)
 import XMonad.Config.MyXMobarPP (myXMobarPP)
+import XMonad.Config.Theme (theme)
 
 import XMonad.Hooks.DynamicLog (dynamicLogString, xmonadPropLog)
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
@@ -27,11 +28,11 @@ import XMonad.Util.EZConfig (additionalKeysP)
 main :: IO ()
 main = xmonad $ docks $ myConfig
 
-myConfig = def { keys       = myKeys
-               , logHook    = dynamicLogString myXMobarPP >>= xmonadPropLog
-               , layoutHook = myLayout
-               , workspaces = myWorkspaces
-               }
+myConfig = theme { keys       = myKeys
+                 , logHook    = dynamicLogString myXMobarPP >>= xmonadPropLog
+                 , layoutHook = myLayout
+                 , workspaces = myWorkspaces
+                 }
            `additionalKeysP` (switchWorkspaceKeys)
 
 myWorkspaces :: [String]
@@ -48,7 +49,7 @@ switchWorkspaceKeys = [(maybeShift ++ "M4-" ++ key, action tag)
 
 
 myLayout = avoidStruts $ spaceWindows $
-           constrainSingle (combineTwo (TwoPane 0.7 0.3) Accordion Full)
+           constrainSingle (combineTwo (Tall 1 (1/100) (1/4)) Accordion Full)
            ||| constrainSingle (Tall 1 (1/100) (1/2))
            ||| Full
   where

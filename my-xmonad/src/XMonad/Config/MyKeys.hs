@@ -21,6 +21,7 @@ import qualified XMonad.StackSet as W
 
 import XMonad.Config.Theme (myXP)
 
+import XMonad.Layout.BoringWindows (focusDown, focusMaster, focusUp)
 import XMonad.Layout.Maximize (maximizeRestore)
 import XMonad.Layout.SubLayouts (pullGroup, GroupMsg(UnMerge))
 import XMonad.Layout.WindowNavigation (Direction2D(U,D))
@@ -56,16 +57,18 @@ myPromptConfig = myXP { autoComplete = Just 200_000
   The key bindings are as follows:
 
   == Manage windows
-    * Super-Tab       Focus next window
-    * Super-Shift-Tab Focus previous window
-    * Super-Escape    Focus primary window
-    * Super-,         Pull first secondary window to primary area
-    * Super-.         Push last primary window to secondary area
-    * Super-=         Make current window master
-    * Super-Left      Swap focused and previous window
-    * Super-Right     Swap focused and next window
-    * Super-Shift-k   Close focused window
-    * Super-Shift-s   Sink floating window
+    * Super-Tab                Focus next gropu
+    * Super-Control-Tab        Focus next window (including in group)
+    * Super-Shift-Tab          Focus previous group
+    * Super-Control-Shift-Tab  Focus previous window (including in group)
+    * Super-Escape             Focus primary group
+    * Super-,                  Pull first secondary window to primary area
+    * Super-.                  Push last primary window to secondary area
+    * Super-=                  Make current window master
+    * Super-Left               Swap focused and previous window
+    * Super-Right              Swap focused and next window
+    * Super-Shift-k            Close focused window
+    * Super-Shift-s            Sink floating window
 
   == Manage layouts
     * Super-Control-j  Merge with window/group below
@@ -88,9 +91,11 @@ myPromptConfig = myXP { autoComplete = Just 200_000
 myKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
 myKeys _ = M.fromList $ [
   -- Manage windows
-    ((mod4Mask, xK_Tab), windows W.focusDown)
-  , ((mod4Mask .|. shiftMask, xK_Tab), windows W.focusUp)
-  , ((mod4Mask, xK_Escape), windows W.focusMaster)
+    ((mod4Mask, xK_Tab), focusDown)
+  , ((mod4Mask .|. controlMask, xK_Tab), windows W.focusDown)
+  , ((mod4Mask .|. shiftMask, xK_Tab), focusUp)
+  , ((mod4Mask .|. controlMask .|. shiftMask, xK_Tab), windows W.focusUp)
+  , ((mod4Mask, xK_Escape), focusMaster)
   , ((mod4Mask, xK_comma), sendMessage (IncMasterN 1))
   , ((mod4Mask, xK_period), sendMessage (IncMasterN (-1)))
   , ((mod4Mask, xK_Left), windows W.swapDown)

@@ -15,6 +15,7 @@ import XMonad.Layout ((|||), Tall(..), Full(..))
 import XMonad.Layout.BoringWindows (boringWindows)
 import XMonad.Layout.Constrained (Constrained(..))
 import XMonad.Layout.IfMax (IfMax(..))
+import XMonad.Layout.Maximize (maximizeWithPadding)
 import XMonad.Layout.Simplest (Simplest(..))
 import XMonad.Layout.Spacing (spacingRaw, Border(..))
 import XMonad.Layout.SubLayouts (subLayout)
@@ -51,7 +52,7 @@ switchWorkspaceKeys = [(maybeShift ++ "M4-" ++ key, action tag)
                                                 ,("S-", windows . W.shift)]]
 
 
-myLayout = windowNavigation $ avoidStruts $ spaceWindows $ mySubTabbed $ boringWindows $
+myLayout = windowNavigation $ avoidStruts $ maximizeWithPadding 0 $ spaceWindows $ mySubTabbed $ boringWindows $
            constrainSingle (Tall 1 (1/100) (1/2))
            ||| constrainSingle (Tall 1 (1/100) (3/4))
   where

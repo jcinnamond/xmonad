@@ -21,6 +21,7 @@ import qualified XMonad.StackSet as W
 
 import XMonad.Config.Theme (myXP)
 
+import XMonad.Layout.Maximize (maximizeRestore)
 import XMonad.Layout.SubLayouts (pullGroup, GroupMsg(UnMerge))
 import XMonad.Layout.WindowNavigation (Direction2D(U,D))
 
@@ -66,10 +67,11 @@ myPromptConfig = myXP { autoComplete = Just 200_000
     * Super-Shift-k   Close focused window
     * Super-Shift-s   Sink floating window
 
-  == Manage sublayouts
+  == Manage layouts
     * Super-Control-j  Merge with window/group below
     * Super-Control-k  Merge with window/group above
     * Super-Control-n  Unmerge window from group
+    * Super-m          Maximize window
 
   == Control XMonad
     * Super-Shift-Space   Change layout
@@ -97,10 +99,11 @@ myKeys _ = M.fromList $ [
   , ((mod4Mask .|. shiftMask, xK_k), kill)
   , ((mod4Mask .|. shiftMask, xK_s), withFocused $ windows . W.sink)
 
-  -- Manage sublayouts
+  -- Manage layouts
   , (((mod4Mask .|. controlMask, xK_j), sendMessage $ pullGroup D))
   , (((mod4Mask .|. controlMask, xK_k), sendMessage $ pullGroup U))
   , (((mod4Mask .|. controlMask, xK_n), withFocused (sendMessage . UnMerge)))
+  , (((mod4Mask, xK_m), withFocused (sendMessage . maximizeRestore)))
 
   -- Control XMonad
   , ((mod4Mask .|. shiftMask, xK_space), sendMessage NextLayout)

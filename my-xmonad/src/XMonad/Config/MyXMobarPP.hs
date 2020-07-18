@@ -18,4 +18,5 @@ myXMobarPP = xmobarPP { ppCurrent = xmobarColor focusedColor "" . wrap "[" "]"
                       , ppHiddenNoWindows = xmobarColor inactiveColor ""
                       , ppTitle = xmobarColor foregroundColor ""
                       , ppSep = xmobarColor inactiveColor "" "   |   "
+                      , ppLayout = \_ -> ""
                       }

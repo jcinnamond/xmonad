@@ -74,15 +74,15 @@ myPromptConfig = myXP { autoComplete = Just 200_000
     * Super-Shift-s            Sink floating window
 
   == Manage layouts
-    * Super-Control-j  Merge with window/group below
-    * Super-Control-k  Merge with window/group above
-    * Super-Control-n  Unmerge window from group
-    * Super-m          Maximize window
+    * Super-Control-Space  Change layout
+    * Super-Control-j      Merge with window/group below
+    * Super-Control-k      Merge with window/group above
+    * Super-Control-n      Unmerge window from group
+    * Super-m              Maximize window
 
   == Control XMonad
-    * Super-Shift-Space   Change layout
-    * Super-q             Restart XMonad
-    * Super-Shift-q       Quit XMonad
+    * Super-q        Restart XMonad
+    * Super-Shift-q  Quit XMonad
 
   == Launchers and running commands
     * Super-<Space>            Pop up terminal
@@ -109,13 +109,13 @@ myKeys _ = M.fromList $ [
   , ((mod4Mask .|. shiftMask, xK_s), withFocused $ windows . W.sink)
 
   -- Manage layouts
-  , (((mod4Mask .|. controlMask, xK_j), sendMessage $ pullGroup D))
-  , (((mod4Mask .|. controlMask, xK_k), sendMessage $ pullGroup U))
-  , (((mod4Mask .|. controlMask, xK_n), withFocused (sendMessage . UnMerge)))
-  , (((mod4Mask, xK_m), withFocused (sendMessage . maximizeRestore)))
+  , ((mod4Mask .|. controlMask, xK_space), sendMessage NextLayout)
+  , ((mod4Mask .|. controlMask, xK_j), sendMessage $ pullGroup D)
+  , ((mod4Mask .|. controlMask, xK_k), sendMessage $ pullGroup U)
+  , ((mod4Mask .|. controlMask, xK_n), withFocused (sendMessage . UnMerge))
+  , ((mod4Mask, xK_m), withFocused (sendMessage . maximizeRestore))
 
   -- Control XMonad
-  , ((mod4Mask .|. shiftMask, xK_space), sendMessage NextLayout)
   , ((mod4Mask, xK_q), spawn "xmonad --recompile && xmonad --restart")
   , ((mod4Mask .|. shiftMask, xK_q), io (exitWith ExitSuccess))
 

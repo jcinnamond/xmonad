@@ -6,6 +6,7 @@ import qualified XMonad.StackSet as W
 
 import XMonad.Config.MyKeys (myKeys)
 import XMonad.Config.MyXMobarPP (myXMobarPP)
+import XMonad.Config.Scratchpads (myScratchpads)
 import XMonad.Config.Theme (theme, myTabTheme)
 
 import XMonad.Hooks.DynamicLog (dynamicLogString, xmonadPropLog)
@@ -28,6 +29,7 @@ import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.XMonad (xmonadPrompt)
 
 import XMonad.Util.EZConfig (additionalKeysP)
+import XMonad.Util.NamedScratchpad (namedScratchpadManageHook)
 
 main :: IO ()
 main = xmonad $ docks $ myConfig
@@ -35,6 +37,7 @@ main = xmonad $ docks $ myConfig
 myConfig = theme { keys       = myKeys
                  , logHook    = dynamicLogString myXMobarPP >>= xmonadPropLog
                  , layoutHook = myLayout
+                 , manageHook = namedScratchpadManageHook myScratchpads
                  , workspaces = myWorkspaces
                  }
            `additionalKeysP` (switchWorkspaceKeys)

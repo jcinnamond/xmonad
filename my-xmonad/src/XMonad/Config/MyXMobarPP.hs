@@ -14,9 +14,10 @@ import XMonad.Config.Theme (activeColor, focusedColor, inactiveColor, foreground
 
 myXMobarPP :: PP
 myXMobarPP = xmobarPP { ppCurrent = xmobarColor focusedColor "" . wrap "[" "]"
-                      , ppHidden = xmobarColor activeColor ""
+                      , ppHidden = xmobarColor activeColor "" . noScratchpads
                       , ppHiddenNoWindows = xmobarColor inactiveColor ""
                       , ppTitle = xmobarColor foregroundColor ""
                       , ppSep = xmobarColor inactiveColor "" "   |   "
                       , ppLayout = \_ -> ""
                       }
+  where noScratchpads ws = if ws == "NSP" then "" else ws

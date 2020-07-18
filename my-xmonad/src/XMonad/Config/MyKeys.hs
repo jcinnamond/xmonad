@@ -20,6 +20,7 @@ import XMonad (ChangeLayout(NextLayout), IncMasterN(..), io, kill, sendMessage, 
 import qualified XMonad.StackSet as W
 
 import XMonad.Config.Theme (myXP)
+import XMonad.Config.Scratchpads (myScratchpads)
 
 import XMonad.Layout.BoringWindows (focusDown, focusMaster, focusUp)
 import XMonad.Layout.Maximize (maximizeRestore)
@@ -30,6 +31,8 @@ import XMonad.Prompt (autoComplete, def, searchPredicate, sorter, XPConfig)
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.XMonad (xmonadPrompt)
+
+import XMonad.Util.NamedScratchpad (namedScratchpadAction)
 
 myPromptConfig :: XPConfig
 myPromptConfig = myXP { autoComplete = Just 200_000
@@ -82,6 +85,7 @@ myPromptConfig = myXP { autoComplete = Just 200_000
     * Super-Shift-q       Quit XMonad
 
   == Launchers and running commands
+    * Super-<Space>            Pop up terminal
     * Super-<Return>           Command launcher
     * Super-Control-<Return>   Prompt for XMonad actions
     * Super-z                  Suspend
@@ -116,6 +120,7 @@ myKeys _ = M.fromList $ [
   , ((mod4Mask .|. shiftMask, xK_q), io (exitWith ExitSuccess))
 
   -- Launchers and running commands
+  , ((mod4Mask, xK_space), namedScratchpadAction myScratchpads "popTerm")
   , ((mod4Mask, xK_Return), shellPrompt myPromptConfig)
   , ((mod4Mask .|. controlMask, xK_Return), xmonadPrompt myPromptConfig)
   , ((mod4Mask, xK_z), spawn "systemctl suspend")

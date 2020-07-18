@@ -1,22 +1,25 @@
+{-# LANGUAGE PatternGuards, ParallelListComp, DeriveDataTypeable, FlexibleInstances, FlexibleContexts, MultiParamTypeClasses, TypeSynonymInstances #-}
 module Main (main) where
 
-import XMonad (keys, logHook, layoutHook, spawn, terminal, Window, windows, workspaces, X, xmonad)
+import XMonad -- (keys, logHook, layoutHook, sendMessage, spawn, Window, windows, withFocused, workspaces, X, xmonad)
 import qualified XMonad.StackSet as W
 
 import XMonad.Config.MyKeys (myKeys)
 import XMonad.Config.MyXMobarPP (myXMobarPP)
-import XMonad.Config.Theme (theme)
+import XMonad.Config.Theme (theme, myTabTheme)
 
 import XMonad.Hooks.DynamicLog (dynamicLogString, xmonadPropLog)
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 
 import XMonad.Layout ((|||), Tall(..), Full(..))
-import XMonad.Layout.Accordion (Accordion(..))
+import XMonad.Layout.BoringWindows (boringWindows)
 import XMonad.Layout.Constrained (Constrained(..))
-import XMonad.Layout.Combo (combineTwo)
 import XMonad.Layout.IfMax (IfMax(..))
-import XMonad.Layout.TwoPane (TwoPane(..))
+import XMonad.Layout.Simplest (Simplest(..))
 import XMonad.Layout.Spacing (spacingRaw, Border(..))
+import XMonad.Layout.SubLayouts (subLayout)
+import XMonad.Layout.Tabbed (addTabs, shrinkText)
+import XMonad.Layout.WindowNavigation (windowNavigation)
 
 import XMonad.Prompt (autoComplete, searchPredicate, sorter, XPConfig)
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
@@ -48,10 +51,10 @@ switchWorkspaceKeys = [(maybeShift ++ "M4-" ++ key, action tag)
                                                 ,("S-", windows . W.shift)]]
 
 
-myLayout = avoidStruts $ spaceWindows $
-           constrainSingle (combineTwo (Tall 1 (1/100) (1/4)) Accordion Full)
-           ||| constrainSingle (Tall 1 (1/100) (1/2))
-           ||| Full
+myLayout = windowNavigation $ avoidStruts $ spaceWindows $ mySubTabbed $ boringWindows $
+           constrainSingle (Tall 1 (1/100) (1/2))
+           ||| constrainSingle (Tall 1 (1/100) (3/4))
   where
     constrainSingle = IfMax 1 Constrained
     spaceWindows = spacingRaw True (Border 0 0 0 0) False (Border 5 5 5 5) True
+    mySubTabbed x = addTabs shrinkText myTabTheme $ subLayout [] Simplest x

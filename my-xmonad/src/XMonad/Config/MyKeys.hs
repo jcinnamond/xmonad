@@ -21,6 +21,9 @@ import qualified XMonad.StackSet as W
 
 import XMonad.Config.Theme (myXP)
 
+import XMonad.Layout.SubLayouts (pullGroup, GroupMsg(UnMerge))
+import XMonad.Layout.WindowNavigation (Direction2D(U,D))
+
 import XMonad.Prompt (autoComplete, def, searchPredicate, sorter, XPConfig)
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
 import XMonad.Prompt.Shell (shellPrompt)
@@ -63,6 +66,11 @@ myPromptConfig = myXP { autoComplete = Just 200_000
     * Super-Shift-k   Close focused window
     * Super-Shift-s   Sink floating window
 
+  == Manage sublayouts
+    * Super-Control-j  Merge with window/group below
+    * Super-Control-k  Merge with window/group above
+    * Super-Control-n  Unmerge window from group
+
   == Control XMonad
     * Super-Shift-Space   Change layout
     * Super-q             Restart XMonad
@@ -88,6 +96,11 @@ myKeys _ = M.fromList $ [
   , ((mod4Mask, xK_equal), windows W.swapMaster)
   , ((mod4Mask .|. shiftMask, xK_k), kill)
   , ((mod4Mask .|. shiftMask, xK_s), withFocused $ windows . W.sink)
+
+  -- Manage sublayouts
+  , (((mod4Mask .|. controlMask, xK_j), sendMessage $ pullGroup D))
+  , (((mod4Mask .|. controlMask, xK_k), sendMessage $ pullGroup U))
+  , (((mod4Mask .|. controlMask, xK_n), withFocused (sendMessage . UnMerge)))
 
   -- Control XMonad
   , ((mod4Mask .|. shiftMask, xK_space), sendMessage NextLayout)

@@ -7,11 +7,13 @@
 -}
 module XMonad.Config.Theme (
   focusedColor, activeColor, inactiveColor, foregroundColor,
-  myXP, theme
+  myXP, theme, myTabTheme
   ) where
 
 import XMonad (borderWidth, def, focusedBorderColor, normalBorderColor, XConfig)
 import XMonad.Prompt (borderColor, bgColor, bgHLight, fgColor, fgHLight, font, height, position, promptBorderWidth, XPConfig, XPPosition(CenteredAt))
+
+import qualified XMonad.Layout.Tabbed as Tabbed
 
 focusedColor, activeColor, inactiveColor, foregroundColor, overlayBackgroundColor :: [Char]
 focusedColor = "#de935f"
@@ -39,3 +41,14 @@ myXP = def { fgColor = foregroundColor
            , font = "xft:NotoSans Nerd Font:size=14:antialias=true:hinting=true"
            , position = CenteredAt 0.3 0.5
            }
+
+myTabTheme :: Tabbed.Theme
+myTabTheme = Tabbed.def { Tabbed.activeColor = focusedBackgroundColor
+                        , Tabbed.activeTextColor = foregroundColor
+                        , Tabbed.activeBorderWidth = 0
+                        , Tabbed.inactiveColor = inactiveColor
+                        , Tabbed.inactiveTextColor = foregroundColor
+                        , Tabbed.inactiveBorderColor = foregroundColor
+                        , Tabbed.fontName = "xft:NotoSans Nerd Font:size=10"
+                        , Tabbed.decoHeight = 21
+                        }

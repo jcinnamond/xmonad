@@ -14,15 +14,16 @@ import XMonad (borderWidth, def, focusedBorderColor, normalBorderColor, XConfig)
 import XMonad.Prompt (borderColor, bgColor, bgHLight, fgColor, fgHLight, font, height, position, promptBorderWidth, XPConfig, XPPosition(CenteredAt))
 
 focusedColor, activeColor, inactiveColor, foregroundColor, overlayBackgroundColor :: [Char]
-focusedColor = "#ed7a71"
-activeColor = "#aac0aa"
-inactiveColor = "#777777"
+focusedColor = "#de935f"
+focusedBackgroundColor = "#a54242"
+activeColor = "#5e8d87"
+inactiveColor = "#707880"
 
-foregroundColor = "#d0d0d0"
-overlayBackgroundColor = "#404040"
+foregroundColor = "#c5c8c6"
+overlayBackgroundColor = "#384d5d"
 
 theme = def { borderWidth = 2
-            , focusedBorderColor = focusedColor
+            , focusedBorderColor = focusedBackgroundColor
             , normalBorderColor = inactiveColor
             }
 

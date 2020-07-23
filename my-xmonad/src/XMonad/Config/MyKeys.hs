@@ -24,7 +24,7 @@ import XMonad.Config.Scratchpads (myScratchpads)
 
 import XMonad.Layout.BoringWindows (focusDown, focusMaster, focusUp)
 import XMonad.Layout.Maximize (maximizeRestore)
-import XMonad.Layout.SubLayouts (pullGroup, GroupMsg(UnMerge))
+import XMonad.Layout.SubLayouts (onGroup, pullGroup, GroupMsg(UnMerge))
 import XMonad.Layout.WindowNavigation (Direction2D(U,D))
 
 import XMonad.Prompt (autoComplete, def, searchPredicate, sorter, XPConfig)
@@ -96,9 +96,9 @@ myKeys :: XConfig l -> M.Map (KeyMask, KeySym) (X ())
 myKeys _ = M.fromList $ [
   -- Manage windows
     ((mod4Mask, xK_Tab), focusDown)
-  , ((mod4Mask .|. controlMask, xK_Tab), windows W.focusDown)
+  , ((mod4Mask .|. controlMask, xK_Tab), onGroup W.focusDown')
   , ((mod4Mask .|. shiftMask, xK_Tab), focusUp)
-  , ((mod4Mask .|. controlMask .|. shiftMask, xK_Tab), windows W.focusUp)
+  , ((mod4Mask .|. controlMask .|. shiftMask, xK_Tab), onGroup W.focusUp')
   , ((mod4Mask, xK_Escape), focusMaster)
   , ((mod4Mask, xK_comma), sendMessage (IncMasterN 1))
   , ((mod4Mask, xK_period), sendMessage (IncMasterN (-1)))

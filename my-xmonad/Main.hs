@@ -10,6 +10,7 @@ import XMonad.Config.Scratchpads (myScratchpads)
 import XMonad.Config.Theme (theme, myTabTheme)
 
 import XMonad.Hooks.DynamicLog (dynamicLogString, xmonadPropLog)
+import XMonad.Hooks.EwmhDesktops (ewmh)
 import XMonad.Hooks.ManageDocks (docks, avoidStruts)
 
 import XMonad.Layout ((|||), Tall(..), Full(..))
@@ -32,7 +33,7 @@ import XMonad.Util.EZConfig (additionalKeysP)
 import XMonad.Util.NamedScratchpad (namedScratchpadManageHook)
 
 main :: IO ()
-main = xmonad $ docks $ myConfig
+main = xmonad $ docks $ ewmh $ myConfig
 
 myConfig = theme { keys       = myKeys
                  , logHook    = dynamicLogString myXMobarPP >>= xmonadPropLog

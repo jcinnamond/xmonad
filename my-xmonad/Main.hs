@@ -59,6 +59,7 @@ switchWorkspaceKeys = [(maybeShift ++ "M4-" ++ key, action tag)
 myLayout = windowNavigation $ avoidStruts $ maximizeWithPadding 0 $ spaceWindows $ mySubTabbed $ boringWindows $
            constrainSingle (Tall 1 (1/100) (1/2))
            ||| constrainSingle (Tall 1 (1/100) (3/4))
+           ||| constrainSingle (Tall 1 (1/100) (1/4))
   where
     constrainSingle = IfMax 1 Constrained
     spaceWindows = spacingRaw True (Border 0 0 0 0) False (Border 5 5 5 5) True

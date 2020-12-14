@@ -13,8 +13,32 @@ module XMonad.Config.MyKeys (
 
 import Data.Bits ((.|.))
 import qualified Data.Map as M
-import Graphics.X11.Xlib -- used for masks, keys, and `stringToKeysym` for looking up multimedia keys
-import System.Exit
+import Graphics.X11.Xlib
+    ( controlMask,
+      mod4Mask,
+      noModMask,
+      shiftMask,
+      xK_Escape,
+      xK_Left,
+      xK_Return,
+      xK_Right,
+      xK_Tab,
+      xK_comma,
+      xK_equal,
+      xK_j,
+      xK_k,
+      xK_l,
+      xK_m,
+      xK_n,
+      xK_period,
+      xK_q,
+      xK_s,
+      xK_space,
+      xK_z,
+      stringToKeysym,
+      KeyMask,
+      KeySym ) -- used for masks, keys, and `stringToKeysym` for looking up multimedia keys
+import System.Exit ( ExitCode(ExitSuccess), exitWith )
 
 import XMonad (ChangeLayout(NextLayout), IncMasterN(..), io, kill, sendMessage, spawn, windows, withFocused, XConfig, X ())
 import qualified XMonad.StackSet as W
@@ -27,7 +51,7 @@ import XMonad.Layout.Maximize (maximizeRestore)
 import XMonad.Layout.SubLayouts (onGroup, pullGroup, GroupMsg(UnMerge))
 import XMonad.Layout.WindowNavigation (Direction2D(U,D))
 
-import XMonad.Prompt (autoComplete, def, searchPredicate, sorter, XPConfig)
+import XMonad.Prompt (autoComplete, searchPredicate, sorter, XPConfig)
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.XMonad (xmonadPrompt)
@@ -85,10 +109,13 @@ myPromptConfig = myXP { autoComplete = Just 200_000
     * Super-Shift-q  Quit XMonad
 
   == Launchers and running commands
-    * Super-<Space>            Pop up terminal
-    * Super-<Return>           Command launcher
+    * Super-<Return>           Pop up terminal
+    * Super-Shift-<Return>     Pull terminal into layout
+    * Super-<Space>            Command launcher
     * Super-Control-<Return>   Prompt for XMonad actions
     * Super-z                  Suspend
+    * Super-Control-m          Fix monitors
+    * Super-l                  Lock screen
 
   It also adds some multimedia key bindings.
 -}
@@ -120,10 +147,13 @@ myKeys _ = M.fromList $ [
   , ((mod4Mask .|. shiftMask, xK_q), io (exitWith ExitSuccess))
 
   -- Launchers and running commands
-  , ((mod4Mask, xK_space), namedScratchpadAction myScratchpads "popTerm")
-  , ((mod4Mask, xK_Return), shellPrompt myPromptConfig)
+  , ((mod4Mask, xK_Return), namedScratchpadAction myScratchpads "popTerm")
+  , ((mod4Mask .|. shiftMask, xK_Return), namedScratchpadAction myScratchpads "pullTerm")
+  , ((mod4Mask, xK_space), shellPrompt myPromptConfig)
   , ((mod4Mask .|. controlMask, xK_Return), xmonadPrompt myPromptConfig)
   , ((mod4Mask, xK_z), spawn "systemctl suspend")
+  , ((mod4Mask .|. controlMask, xK_m), spawn "~/bin/monitors")
+  , ((mod4Mask, xK_l), spawn "xautolock -locknow")
 
    -- Multimedia keys
   , ((noModMask, stringToKeysym "XF86AudioPlay"), spawn "playerctl play-pause")

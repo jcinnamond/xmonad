@@ -9,13 +9,16 @@ module XMonad.Config.Scratchpads (
   myScratchpads
   ) where
 
-import XMonad (title, (=?))
+import XMonad (className, (=?))
 import qualified XMonad.StackSet as W
 
-import XMonad.Util.NamedScratchpad (customFloating, NamedScratchpad(NS))
+import XMonad.Util.NamedScratchpad (nonFloating, customFloating, NamedScratchpad(NS))
 
 myScratchpads =
-  [ NS "popTerm" "alacritty --title 'popTerm'"
-    (title =? "popTerm")
+  [ NS "popTerm" "termite --class 'popTerm'"
+    (className =? "popTerm")
     (customFloating $ W.RationalRect (1/6) (1/6) (2/3) (2/3))
+  , NS "pullTerm" "termite --class 'pullTerm'"
+    (className =? "pullTerm")
+    nonFloating
   ]
